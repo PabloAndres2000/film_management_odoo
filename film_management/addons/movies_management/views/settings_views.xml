@@ -1,0 +1,50 @@
+<odoo>
+    <record id="view_movie_api_settings_form" model="ir.ui.view">
+        <field name="name">movie.api.settings.form</field>
+        <field name="model">movie.api.settings</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <!-- Campos deben estar declarados en el modelo -->
+                    <field name="test_success" invisible="1"/>
+                    <field name="test_failed" invisible="1"/>
+                    <field name="test_message" invisible="1"/>
+
+                    <div class="alert alert-info" role="alert">
+                        <i class="fa fa-info-circle"/>
+                        Prueba la conexión con la API antes de guardar
+                    </div>
+
+                    <div class="alert alert-success" attrs="{'invisible': [('test_success', '=', False)]}">
+                        <i class="fa fa-check-circle"/>
+ Conexión exitosa con la API
+                    </div>
+
+                    <!-- Mensaje de error -->
+                    <div class="alert alert-danger" attrs="{'invisible': [('test_failed', '=', False)]}">
+                        <i class="fa fa-exclamation-circle"/>
+                        <span t-esc="test_message"/>
+                    </div>
+
+                    <group>
+                        <field name="api_url" class="mt16"/>
+                        <footer>
+                            <button name="test_api_connection" string="Test Connection" type="object" class="btn-secondary" attrs="{'invisible': [('api_url', '=', False)]}" />
+                        </footer>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <!-- Acción para configuración -->
+    <record id="action_movie_api_settings" model="ir.actions.act_window">
+        <field name="name">API Settings</field>
+        <field name="res_model">movie.api.settings</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="view_movie_api_settings_form"/>
+    </record>
+
+    <!-- Menú de configuración -->
+    <menuitem id="menu_movie_settings" name="API Settings" parent="menu_movies_root" action="action_movie_api_settings" sequence="20"/>
+</odoo>
