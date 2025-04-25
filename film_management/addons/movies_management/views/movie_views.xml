@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Acción principal para películas -->
+    <record id="action_movie_list" model="ir.actions.act_window">
+        <field name="name">Movies</field>
+        <field name="res_model">movie.movie</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Acción para importar película -->
+    <record id="action_import_movie" model="ir.actions.act_window">
+        <field name="name">Import Random Movie</field>
+        <field name="res_model">movie.movie</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <!-- Acción de servidor para importar -->
+    <record id="action_server_import_movie" model="ir.actions.server">
+        <field name="name">Import Random Movie</field>
+        <field name="model_id" ref="model_movie_movie"/>
+        <field name="state">code</field>
+        <field name="code">
+            model.fetch_movie_from_api()
+        </field>
+    </record>
+
+    <!-- Vista de árbol (lista) -->
+    <record id="view_movie_tree" model="ir.ui.view">
+        <field name="name">movie.movie.tree</field>
+        <field name="model">movie.movie</field>
+        <field name="arch" type="xml">
+            <tree>
+                <header>
+                    <button name="%(action_server_import_movie)d" type="action" string="Import Random Movie" class="btn-primary"/>
+                </header>
+                <field name="title"/>
+                <field name="ranking" widget="progressbar" options="{'current_value': 'ranking', 'max_value': 10}"/>
+                <field name="last_update"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Vista de formulario -->
+    <record id="view_movie_form" model="ir.ui.view">
+        <field name="name">movie.movie.form</field>
+        <field name="model">movie.movie</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="title"/>
+                        <field name="ranking" widget="float_step" options="{'step': 0.1}"/>
+                        <field name="last_update" readonly="1"/>
+                    </group>
+
+                    <notebook>
+                        <page string="API Raw Data" attrs="{'invisible': [('api_data', '=', False)]}">
+                            <field name="api_data" readonly="1" nolabel="1" widget="json"/>
+                        </page>
+                        <page string="Statistics">
+                            <field name="create_date" readonly="1"/>
+                            <field name="write_date" readonly="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Vista de búsqueda CORREGIDA -->
+    <record id="view_movie_search" model="ir.ui.view">
+        <field name="name">movie.movie.search</field>
+        <field name="model">movie.movie</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="title" string="Movie Title"/>
+                <filter string="High Ranking" name="high_ranking" domain="[('ranking', '>=', 7)]"/>
+                <filter string="Recently Added" name="recent" domain="[('create_date', '>=', (context_today() - datetime.timedelta(days=7)).strftime('%Y-%m-%d'))]"/>
+                <group expand="0" string="Group By">
+                    <filter string="By Ranking" name="group_by_ranking" context="{'group_by': 'ranking'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Menú principal -->
+    <menuitem id="menu_movies_root" name="Movies" sequence="10"/>
+    <menuitem id="menu_movies" name="All Movies" parent="menu_movies_root" action="action_movie_list"/>
+</odoo>
