@@ -49,6 +49,11 @@ En este apartado es importante que puedas ingresar en **`Master Password`** lo s
 En aplicaciones busca **`Movies Management`** y activalo, cuando lo tengas activado, lo ideal es dirigrte a **`API Settings`** para probar la conexion de la api externa de peliculas, la url se deja directa para que puedas probar la conexion, en caso que este bien indicara una alerta de exito, en caso de error, dira que la conexion es invalida. Cuando este todo configurado y ya la prueba de conexion sea exitosa, automaticamente se correra el cron cada 1 minuto para buscar registros desde la api externa, en caso que te demores en hacer el test de conexion y no se cree 10 registros, puedes hacerlo manualmente o indicar cuantas veces quieres que se creen el registro. Para eso ingresa a esta url: http://localhost:8069/web#action=13&model=ir.cron&view_type=list&cids=1. **`Ingresas a Import Random Movie Every Minute`** y podras configurar el numero de ejecuciones automaticamente o crearlos manualmente. ya cuando este todo okey, podras revisar el API REST creado, sigue el paso 5.
 
 imagenes de referencia:
+<img width="1440" alt="Captura de pantalla 2025-04-24 a la(s) 11 33 33 p m" src="https://github.com/user-attachments/assets/131d1a96-1876-442d-b2df-5d0e3a27ac29" />
+<img width="1440" alt="Captura de pantalla 2025-04-24 a la(s) 11 34 16 p m" src="https://github.com/user-attachments/assets/6e7da025-a405-45d1-9f27-06d929b7360c" />
+<img width="1439" alt="Captura de pantalla 2025-04-24 a la(s) 11 34 56 p m" src="https://github.com/user-attachments/assets/5a43aa2c-386f-4c15-a118-631c28b8b861" />
+<img width="1439" alt="Captura de pantalla 2025-04-24 a la(s) 11 36 28 p m" src="https://github.com/user-attachments/assets/7694cb56-82dd-4ee3-b8ab-894167613294" />
+
 
 ### 4. Revision de logs
 
@@ -61,6 +66,7 @@ Una vez que el proyecto esté en funcionamiento y tengas los 10 registros de las
 endpoint url: http://localhost:8069/api/top_movies
 
 imagen:
+<img width="1061" alt="Captura de pantalla 2025-04-24 a la(s) 11 36 47 p m" src="https://github.com/user-attachments/assets/855f30aa-fbb5-4fe3-81c2-6873825286a8" />
 
 ### Acceder a PGAdmin
 
