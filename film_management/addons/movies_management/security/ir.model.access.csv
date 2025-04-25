@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_movie_movie,movie.movie,model_movie_movie,base.group_user,1,1,1,1
+access_movie_api_settings,movie.api.settings,model_movie_api_settings,base.group_system,1,1,1,1
